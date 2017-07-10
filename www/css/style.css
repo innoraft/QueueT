@@ -1,1 +1,41 @@
 /* Empty. Add your own CSS if you like */
+.logo-image{
+	max-width: 200px;
+	border-radius: 100%;
+}
+.item-logo-image{
+	text-align: center;
+	border-style: none;
+}
+.container{
+	margin: 0 15px;
+}
+input[type="text"],input[type="password"]{
+	font-size: 18px;
+}
+.input-label{
+	font-size: 24px;
+	color: #a6a6a6;
+}
+.link-icon{
+	font-size: 26px;
+	margin-right: 20px;
+}
+.color-assertive{
+	background-color: #ef473a;
+	color: white;
+}
+.align-center{
+	text-align: center;
+	margin: 0 auto;
+}
+.color-blood{
+	background-color: #ac0f03;
+	color: white;
+}
+a{
+	text-decoration: none;
+}
+a.button.icon.ion-log-out::before{
+	margin-top: 0px;
+}

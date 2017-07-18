@@ -3,7 +3,6 @@ app.controller('AppCtrl',function($scope,$firebaseObject){
   var provider = new firebase.auth.GoogleAuthProvider();
   // provider.addScope('https://www.googleapis.com/auth/plus.login');
 
-
 	$scope.googleAuth =  function(){
     // firebase authentication with popup window.
 		// $scope.name="abc";
@@ -17,8 +16,8 @@ app.controller('AppCtrl',function($scope,$firebaseObject){
 				$scope.name=user.displayName;
 			});
 			$scope.name = user.displayName;
-    	console.log(user.displayName);
-    	// ...
+      // $state.go('home');
+      console.log(user.displayName);
     }).catch(function(error) {
     	// Handle Errors here.
     	var errorCode = error.code;
@@ -30,7 +29,28 @@ app.controller('AppCtrl',function($scope,$firebaseObject){
     	// ...
     	// console.log("entering error");
     });
-
 	};
+  // login state checking function...
+  $scope.checkLoginState = function checkLoginState() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('signed in');
+      } else {
+        // No user is signed in.
+        console.log('not signed in');
+      }
+    });
+  };
+  // function for loging out.
+  $scope.logout = function logout() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log("Sign-out successful");
+    }, function(error) {
+      // An error happened.
+      console.log('An error happened');
+    });
+  }
 
 });

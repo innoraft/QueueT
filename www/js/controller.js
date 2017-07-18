@@ -20,6 +20,19 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state){
 			$scope.name = user.displayName;
       // $state.go('home');
       console.log(user.displayName);
+
+       firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('signed in');
+        $state.go('home');
+      } else {
+        // No user is signed in.
+        console.log('not signed in');
+        $state.go('login');
+      }
+    });
+
     }).catch(function(error) {
     	// Handle Errors here.
     	var errorCode = error.code;

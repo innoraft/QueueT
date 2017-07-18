@@ -25,19 +25,17 @@ app.run(function($ionicPlatform) {
 
 app.config(function($stateProvider, $locationProvider) {
   $stateProvider
-    .state('home', {
+  .state('login', {
     url: '/',
     // abstract: true,
     templateUrl: 'template/login.html',
     controller: 'AppCtrl'
   })
-    .state('profile', {
-    url: '/profile',
-    // abstract: true,
-    templateUrl: 'template/profile.html',
-    // controller: 'AppCtrl'
+  .state('home', {
+    url:'/home',
+    templateUrl: 'template/home.html',
+    controller:'AppCtrl'
   })
   // For removing '#' from the url.
   $locationProvider.html5Mode(true);
 })
-

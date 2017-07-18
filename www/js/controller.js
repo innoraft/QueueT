@@ -1,5 +1,5 @@
-// Todo Controller
-app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state){
+
+app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal){
 
   var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -51,11 +51,24 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state){
   $scope.logout = function logout() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
-      console.log("Sign-out successful");
+      console.log("successfully logged-out");
+      $state.go('login');
     }, function(error) {
       // An error happened.
-      console.log('An error happened');
+      console.log('Error occured');
     });
-  }
-
+  }  
 });
+
+app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal){
+//this is used for calling newNotes.html when users click on newNote button
+     $scope.newVideo=function(){
+  $scope.modalFirst.show()
+}
+
+  $ionicModal.fromTemplateUrl('template/newVideo.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalFirst = modal;
+  });
+  });

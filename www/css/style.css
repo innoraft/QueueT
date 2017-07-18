@@ -1,6 +1,36 @@
 /* Empty. Add your own CSS if you like */
-
+body,.pane{
+ 	font-family: 'Montserrat', 'sans-serif' !important;
+ }
  .signIn-font{
  	font-size: 18px;
  	font-weight: bold;
  }
+ /*.signIn-font:before{
+ 	font-size: 32px;
+ 	padding-right: 10px;
+ }*/
+.bar .button, .bar button{
+	font-size: 14px;
+	font-weight: bold;
+ }
+.ion-social-google:before{
+	font-size: 32px !important;
+	padding-right: 10px !important;
+	line-height: 43px !important;
+	margin-right: 5px;
+	border-right: 2px solid white;
+}
+.align-middle{
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	position: absolute;
+}
+.align-center{
+	margin: 0 auto;
+	text-align: center;
+}
+.pane{
+background-color: #303030;
+}

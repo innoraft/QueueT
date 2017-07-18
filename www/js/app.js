@@ -31,6 +31,13 @@ app.config(function($stateProvider, $locationProvider) {
     templateUrl: 'template/login.html',
     controller: 'AppCtrl'
   })
+    .state('profile', {
+    url: '/profile',
+    // abstract: true,
+    templateUrl: 'template/profile.html',
+    // controller: 'AppCtrl'
+  })
   // For removing '#' from the url.
   $locationProvider.html5Mode(true);
 })
+

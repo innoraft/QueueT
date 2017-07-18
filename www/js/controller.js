@@ -1,5 +1,5 @@
 // Todo Controller
-app.controller('AppCtrl',function($scope,$firebaseObject){
+app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$location){
 
   var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -37,10 +37,20 @@ app.controller('AppCtrl',function($scope,$firebaseObject){
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
-    var user = result.user;
-    console.log(user.displayName);
+    var user_info = result.user;
+    console.log(user_info);
+    if (user_info) {
+        // user logged in, go to home page.
+          $location.path('profile');
+          console.log(user.displayName);
+        }
+        else
+        {
+            console.log("prblm");
+        }
     // ...
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -49,7 +59,7 @@ app.controller('AppCtrl',function($scope,$firebaseObject){
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
-    // console.log("entering error");
+    console.log("entering error");
     });
 
 	};

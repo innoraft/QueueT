@@ -1,11 +1,13 @@
-<ion-view view-title="Todos">
-	<ion-content class="todos-content">
+<ion-view view-title="login">
+	<ion-content>
   <div ng-controller="AppCtrl" class="padding">
-    <div></div>
-    <div class="item button button-block button-assertive icon ion-social-google signIn-font" ng-model="addTodoBtn" ng-click="googleAuth()"> Login with Google</div>
+  <div class="align-middle">
+  <div class="align-center"><img src="../img/ionic.png"></div>
+    <div class="item button button-block button-assertive icon ion-social-google signIn-font has-header" ng-click="googleAuth()"> Login with Google</div>
 		<!-- <button type="button" name="button"><a href="/#/home">Go To Home</a></button>
 		<button type="button" name="button" ng-click="logout()">logout</button>
 		<button type="button" name="button" ng-click="checkLoginState()">Check Login State</button> -->
+   </div>
    </div>
 	</ion-content>
 </ion-view>

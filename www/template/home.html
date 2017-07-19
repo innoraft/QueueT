@@ -13,21 +13,21 @@
             </div>
         </div>
 
-<script id="template/newVideo.html" type="text/ng-template">
+<script id="template/newVideo.html" type="text/ng-template" ng-controller="newVideoCtrl">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
           <h1 class="title">New Video Link</h1>
           <button class="button button-clear button-primary" ng-click="modalFirst.hide()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
-         <form name="addForm">
+         <form name="addForm" ng-submit="add_video(video)">
             <div class="list">
                 <label class="item item-input">
-                <input type="text" placeholder="Enter Video Title" required>
+                <input type="text" placeholder="Enter Video Title" ng-model="video.video_title" required>
                 </label>
                 <br/>
                 <label class="item item-input">
-                <textarea rows="6" placeholder="Paste Your Video URL" required></textarea>
+                <textarea rows="6" placeholder="Paste Your Video URL" ng-model="video.video_url" required></textarea>
                 </label>
                 <div class="row">
                     <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="addForm.$invalid"><i class="ion-plus-circled"></i> Add

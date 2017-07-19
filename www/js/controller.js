@@ -36,17 +36,17 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 
 	};
   // login state checking function...
-  $scope.checkLoginState = function checkLoginState() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log('signed in');
-      } else {
-        // No user is signed in.
-        console.log('not signed in');
-      }
-    });
-  };
+  // $scope.checkLoginState = function checkLoginState() {
+  //   firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       // User is signed in.
+  //       console.log('signed in');
+  //     } else {
+  //       // No user is signed in.
+  //       console.log('not signed in');
+  //     }
+  //   });
+  // };
   // function for loging out.
   $scope.logout = function logout() {
     firebase.auth().signOut().then(function() {
@@ -60,15 +60,30 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
   }  
 });
 
-app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal){
-//this is used for calling newNotes.html when users click on newNote button
+app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal,$firebase){
+//this is used for calling newVideo.html when users click on newNote button
      $scope.newVideo=function(){
   $scope.modalFirst.show()
-}
-
+  }
   $ionicModal.fromTemplateUrl('template/newVideo.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modalFirst = modal;
   });
+ 
+ // Add new Video to Firebase
+    $scope.add_video  = function(object) {
+        var database = firebase.database();
+        var newVideoData = {
+          title: object.video_title,
+          url: object.video_url
+          }
+
+          var ref = database.ref('videos');
+          ref.push(newVideoData);
+          object.video_title = "";
+          object.video_url = "";     
+          $scope.modalFirst.hide();
+
+  }
   });

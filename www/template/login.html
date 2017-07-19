@@ -1,13 +1,13 @@
-<ion-view view-title="Todos">
-	<ion-content class="todos-content">
-  <div ng-controller="AppCtrl">
-  {{ name.first }}
-  <div class="list">
-    <label class="item item-input">
-      <input type="text" ng-model="name" placeholder="Add Todo...">
-    </label>
-    <div class="item button button-block button-stable" ng-model="addTodoBtn" ng-disabled="!name" ng-click="saveTodo()">Save</div>
-  </div>
-  </div>
+<ion-view view-title="login">
+	<ion-content>
+  <div ng-controller="AppCtrl" class="padding">
+  <div class="align-middle">
+  <div class="align-center"><img src="../img/ionic.png"></div>
+    <div class="item button button-block button-assertive icon ion-social-google signIn-font has-header" ng-click="googleAuth()"> Login with Google</div>
+		<!-- <button type="button" name="button"><a href="/#/home">Go To Home</a></button>
+		<button type="button" name="button" ng-click="logout()">logout</button>
+		<button type="button" name="button" ng-click="checkLoginState()">Check Login State</button> -->
+   </div>
+   </div>
 	</ion-content>
 </ion-view>

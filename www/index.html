@@ -15,6 +15,7 @@
           .catch(err => console.log('Error', err));
       }
     </script>-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -38,18 +39,11 @@
 
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script src="js/firebaseAuth.js"></script>
 
-    <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyAlI1auQrztr4vRm-5FyKenxYSSYac6jDw",
-      authDomain: "queuet-4bff7.firebaseapp.com",
-      databaseURL: "https://queuet-4bff7.firebaseio.com",
-      projectId: "queuet-4bff7",
-      storageBucket: "queuet-4bff7.appspot.com",
-      messagingSenderId: "157918105555"
-    };
-    firebase.initializeApp(config);
+    <!-- Initialize Firebase -->
+    <script type="text/javascript">
+          firebase.initializeApp(config);
     </script>
 
     <!-- your app's js -->
@@ -60,12 +54,11 @@
   </head>
   <body ng-app="QueueT">
     <ion-pane>
-      <ion-header-bar class="bar-stable">
+    <!--   <ion-header-bar class="bar-stable">
         <h1 class="title"><a href="#/home">QueueT</a></h1>
-      </ion-header-bar>
-      <ion-nav-bar class="bar-dark">
-        <ion-nav-back-button></ion-nav-back-button>
-      </ion-nav-bar>
+      </ion-header-bar> -->
+      <!-- <ion-nav-bar class="bar-dark">
+      </ion-nav-bar> -->
       <ion-nav-view>
       </ion-nav-view>
     </ion-pane>

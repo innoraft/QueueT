@@ -34,7 +34,7 @@ app.config(function($stateProvider, $locationProvider) {
   .state('home', {
     url:'/home',
     templateUrl: 'template/home.html',
-    controller:'AppCtrl'
+    controller: 'newVideoCtrl'
   })
   // For removing '#' from the url.
   $locationProvider.html5Mode(true);

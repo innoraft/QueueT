@@ -55,8 +55,38 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$firebaseAuth,$state,$ionicModal,$firebase){
 
 // retriving data from firebase
+ // $scope.videos = [];
+
  var Refshow = firebase.database().ref('videos');
+//  Refshow.on('value', function(snapshot) {
+//     var obj = snapshot.val();
+//     obj.forEach(function(data){
+//         console.log(data.key()());
+//     })
+// });
+
   $scope.videos = $firebaseArray(Refshow);
+ // Refshow.on('value',function(data){
+  //   $scope.videos=[];
+  //         for (var key in note) {
+  //               if (note.hasOwnProperty(key)) {
+  //                   note[key].key = key;
+  //                   $scope.notes.push(note[key]);
+  //               }
+  //           }
+ //    var video = data.val();
+ //        $scope.videos = [];
+ //        $timeout(function() {
+ //            for (var key in note) {
+ //                if (note.hasOwnProperty(key)) {
+ //                    note[key].key = key;
+ //                    $scope.notes.push(note[key]);
+ //                }
+ //            }
+ //    $scope.videos.push(data.val());
+ //    console.log(data.val());
+ //    console.log($scope.videos);
+ // });
 
 //this is used for calling newVideo.html when users click on newNote button
      $scope.newVideo=function(){
@@ -84,13 +114,15 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
           var database = firebase.database(); 
           var newVideoData = {
           title: object.video_title,
-          url: object.video_url
+          url: object.video_url,
+          // embed: 
           }
           var ref = database.ref('videos');
           ref.push(newVideoData);
           object.video_title = "";
           object.video_url = "";     
           $scope.error_msg = "";
+          // object.embed_url = 'https://www.youtube.com/embed/' + id + '?autoplay=0&enablejsapi=1';
           $scope.modalFirst.hide();
         }
         else{                 //else throw error if invalid
@@ -106,4 +138,18 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
           return false;
           }
       }
+
+    $scope.deleteVideo = function(object){
+      var DelRef = firebase.database().ref('videos');
+    //   var arr_ref=$firebaseArray(Delref);
+    //   for(var i=0;i<arr_ref.length;i++){
+    //     if(key==arr_ref[i].$id){
+    //         console.log(arr_ref[i]);
+    //         arr_ref.$remove(i);
+    //     }
+    // }
+      console.log(object);
+      // DelRef.child(object).remove();
+      // console.log('deleted');
+    }
   });

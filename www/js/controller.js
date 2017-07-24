@@ -27,17 +27,18 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 
 	};
   // login state checking function...
-  // $scope.checkLoginState = function checkLoginState() {
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       // User is signed in.
-  //       console.log('signed in');
-  //     } else {
-  //       // No user is signed in.
-  //       console.log('not signed in');
-  //     }
-  //   });
-  // };
+$scope.checkLoginState = function checkLoginState() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log('signed in');
+    } else {
+      // No user is signed in.
+      console.log('not signed in');
+    }
+  });
+};
+
 
   // function for loging out.
   $scope.logout = function logout() {
@@ -55,42 +56,36 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$firebaseAuth,$state,$ionicModal,$firebase){
 
 // retriving data from firebase
- // $scope.videos = [];
-
  var Refshow = firebase.database().ref('videos');
-//  Refshow.on('value', function(snapshot) {
-//     var obj = snapshot.val();
-//     obj.forEach(function(data){
-//         console.log(data.key()());
-//     })
-// });
-
   $scope.videos = $firebaseArray(Refshow);
- // Refshow.on('value',function(data){
-  //   $scope.videos=[];
-  //         for (var key in note) {
-  //               if (note.hasOwnProperty(key)) {
-  //                   note[key].key = key;
-  //                   $scope.notes.push(note[key]);
-  //               }
-  //           }
- //    var video = data.val();
- //        $scope.videos = [];
- //        $timeout(function() {
- //            for (var key in note) {
- //                if (note.hasOwnProperty(key)) {
- //                    note[key].key = key;
- //                    $scope.notes.push(note[key]);
- //                }
- //            }
- //    $scope.videos.push(data.val());
- //    console.log(data.val());
- //    console.log($scope.videos);
- // });
 
-//this is used for calling newVideo.html when users click on newNote button
-     $scope.newVideo=function(){
-  $scope.modalFirst.show()
+  // myVideos will store the array returned from firebase...
+  var myVideos = $scope.videos;
+
+  // // Function to extract videoid and to embed url from youtube url...
+  // function embedVideoUrl(url){
+  //   var regex = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/;
+  //   var videoid = url.match(regex);
+  //
+  //     var embed_url = "https://www.youtube.com/watch?v=" + videoid[1];
+  //     return embed_url;
+  // }
+
+// Extracting individual items from myVideos array and appending the IDs into "all_video" array...
+  myVideos.$loaded()
+  .then(function(){
+      var all_video = [];
+      angular.forEach(myVideos, function(video) {
+          var video = {url:video.url, title:video.title}
+          all_video.push(video);
+      })
+      $scope.all_video = all_video;
+      console.log(all_video);
+  });
+
+  //this is used for calling newVideo.html when users click on newNote button
+  $scope.newVideo=function(){
+    $scope.modalFirst.show()
   }
   $ionicModal.fromTemplateUrl('template/newVideo.html', {
     scope: $scope
@@ -114,15 +109,13 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
           var database = firebase.database(); 
           var newVideoData = {
           title: object.video_title,
-          url: object.video_url,
-          // embed: 
+          url: object.video_url
           }
           var ref = database.ref('videos');
           ref.push(newVideoData);
           object.video_title = "";
           object.video_url = "";     
           $scope.error_msg = "";
-          // object.embed_url = 'https://www.youtube.com/embed/' + id + '?autoplay=0&enablejsapi=1';
           $scope.modalFirst.hide();
         }
         else{                 //else throw error if invalid
@@ -138,18 +131,4 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
           return false;
           }
       }
-
-    $scope.deleteVideo = function(object){
-      var DelRef = firebase.database().ref('videos');
-    //   var arr_ref=$firebaseArray(Delref);
-    //   for(var i=0;i<arr_ref.length;i++){
-    //     if(key==arr_ref[i].$id){
-    //         console.log(arr_ref[i]);
-    //         arr_ref.$remove(i);
-    //     }
-    // }
-      console.log(object);
-      // DelRef.child(object).remove();
-      // console.log('deleted');
-    }
   });

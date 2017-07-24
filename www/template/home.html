@@ -17,23 +17,20 @@
                 </span>
             </div>
         </div> -->
-        	<div class="bar bar-subheader padding">
-       			 <h2 class="title">VIDEO QUEUE</h2>
-        	</div>
-	        <div class="list padding has-subheader" ng-repeat="eachvideo in videos">
-				<div class="item item-divider">
-				{{ videos.$getRecord(eachvideo.$id).title }}<i class="icon ion-trash-a" style="float:right;" ng-click="deleteVideo({{ videos.$getRecord(eachvideo.$id) }})"></i>
+        <div class="bar bar-subheader padding"><h2 class="title">VIDEO QUEUE</h2>
+        </div>
+
+        <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ukg_U3CnJWI" frameborder="0" allowfullscreen></iframe> -->
+        <div class="list padding has-subheader" ng-repeat="video in all_video track by $index">
+
+				<div class="item item-divider" style="text-align:center;">
+				{{ video.title }}
 				</div>
-				<div class="item item-text-wrap">
-				{{ videos.$getRecord(eachvideo.$id).url }}
-				</div>
-				<!-- <iframe id="videoObject" type="text/html" style="width: 100vw;" frameborder="0" allowfullscreen src="{{ video.embed_url }}"></iframe> -->
-				
-			</div>
-
-			<!-- <h1 ng-repeat="(key, value) in video_set">{{ key }}</h1> -->
-
-
+		      <div class="item item-text-wrap" style="text-align:center;">
+            <!-- <a href="{{ videos.$getRecord(eachvideo.$id).url }}" target="_blank">{{ videos.$getRecord(eachvideo.$id).url }}</a> -->
+            <iframe width="560" height="315" align="center" ng-src="{{video.url | trusted}}" frameborder="0" allowfullscreen></iframe>
+		      </div>
+		    </div>
 <script id="template/newVideo.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
@@ -62,6 +59,3 @@
         </ion-content>
       </ion-modal-view>
     </script>
-
-	</ion-content>
-</ion-view>

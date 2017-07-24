@@ -31,3 +31,31 @@
             <iframe ng-src="{{video.url | trusted}}" frameborder="0" style="width: 100vw; " allowfullscreen></iframe>
 		      </div>
 		    </div>
+<script id="template/newVideo.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-assertive">
+          <h1 class="title">New Video Link</h1>
+          <button class="button button-clear button-primary" ng-click="close()">Cancel</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+         <form name="addForm" ng-submit="add_video(video)">
+            <div class="list">
+                <label class="item item-input">
+                <input type="text" placeholder="Enter Video Title" ng-model="video.video_title" required>
+                </label>
+                <br/>
+                <label class="item item-input">
+                <textarea rows="6" id="youTubeUrl" placeholder="Paste Your Video URL" ng-model="video.video_url" required></textarea>
+                </label>
+                <span>{{ error_msg }}</span>
+                <div class="row">
+                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="btndisabled" ng-model="disable_add"><i class="ion-plus-circled"></i> Add
+                    </button>
+                    <button type="reset" class="button-assertive button-block button col-33 col-offset-33"><i class="ion-ios-refresh"></i> Reset</button>
+                </div>
+            </div>
+
+        </form>
+        </ion-content>
+      </ion-modal-view>
+    </script>

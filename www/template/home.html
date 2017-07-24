@@ -26,8 +26,8 @@
 				<div class="item item-divider" style="text-align:center;">
 				{{ video.title }}
 				</div>
-		      <div class="item item-text-wrap" style="text-align:center;">
+		      <div class="item item-text-wrap">
             <!-- <a href="{{ videos.$getRecord(eachvideo.$id).url }}" target="_blank">{{ videos.$getRecord(eachvideo.$id).url }}</a> -->
-            <iframe width="560" height="315" align="center" ng-src="{{video.url | trusted}}" frameborder="0" allowfullscreen></iframe>
+            <iframe ng-src="{{video.url | trusted}}" frameborder="0" style="width: 100vw; " allowfullscreen></iframe>
 		      </div>
 		    </div>

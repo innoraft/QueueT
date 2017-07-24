@@ -75,7 +75,8 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
   .then(function(){
       var all_video = [];
       angular.forEach(myVideos, function(video) {
-          var video = {url:video.url, title:video.title}
+          var video = {id:video.$id, url:video.url, title:video.title}
+          console.log(video);
           all_video.push(video);
       })
       $scope.all_video = all_video;

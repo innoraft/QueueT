@@ -37,5 +37,12 @@ app.config(function($stateProvider, $locationProvider) {
     controller: 'newVideoCtrl'
   })
   // For removing '#' from the url.
-  $locationProvider.html5Mode(true);
+  // $locationProvider.html5Mode(true);
 })
+
+app.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+            var video_id = url.split('v=')[1].split('&')[0];
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + video_id);
+    };
+}]);

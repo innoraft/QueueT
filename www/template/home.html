@@ -17,47 +17,17 @@
                 </span>
             </div>
         </div> -->
-        <div class="bar bar-subheader padding"><h2 class="title">VIDEO QUEUE</h2></div>
-	        <div class="list padding has-subheader" ng-repeat="eachvideo in videos">
-				<div class="item item-divider">
-				{{ videos.$getRecord(eachvideo.$id).title }}
+        <div class="bar bar-subheader padding"><h2 class="title">VIDEO QUEUE</h2>
+        </div>
+
+        <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ukg_U3CnJWI" frameborder="0" allowfullscreen></iframe> -->
+        <div class="list padding has-subheader" ng-repeat="video in all_video track by $index">
+
+				<div class="item item-divider" style="text-align:center;">
+				{{ video.title }}
 				</div>
-				<div class="item item-text-wrap">
-				{{ videos.$getRecord(eachvideo.$id).url }}
-				</div>
-			</div>
-
-			<!-- <h1 ng-repeat="(key, value) in video_set">{{ key }}</h1> -->
-
-
-<script id="template/newVideo.html" type="text/ng-template">
-      <ion-modal-view>
-        <ion-header-bar class="bar bar-header bar-assertive">
-          <h1 class="title">New Video Link</h1>
-          <button class="button button-clear button-primary" ng-click="close()">Cancel</button>
-        </ion-header-bar>
-        <ion-content class="padding">
-         <form name="addForm" ng-submit="add_video(video)">
-            <div class="list">
-                <label class="item item-input">
-                <input type="text" placeholder="Enter Video Title" ng-model="video.video_title" required>
-                </label>
-                <br/>
-                <label class="item item-input">
-                <textarea rows="6" id="youTubeUrl" placeholder="Paste Your Video URL" ng-model="video.video_url" required></textarea>
-                </label>
-                <span>{{ error_msg }}</span>
-                <div class="row">
-                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="btndisabled" ng-model="disable_add"><i class="ion-plus-circled"></i> Add
-                    </button>
-                    <button type="reset" class="button-assertive button-block button col-33 col-offset-33"><i class="ion-ios-refresh"></i> Reset</button>
-                </div>
-            </div>
-
-        </form>
-        </ion-content>
-      </ion-modal-view>
-    </script>
-
-	</ion-content>
-</ion-view>
+		      <div class="item item-text-wrap" style="text-align:center;">
+            <!-- <a href="{{ videos.$getRecord(eachvideo.$id).url }}" target="_blank">{{ videos.$getRecord(eachvideo.$id).url }}</a> -->
+            <iframe width="560" height="315" align="center" ng-src="{{video.url | trusted}}" frameborder="0" allowfullscreen></iframe>
+		      </div>
+		    </div>

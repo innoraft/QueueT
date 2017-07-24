@@ -1,4 +1,4 @@
-<ion-view view-title="QueueT">
+<ion-view view-title="QueueT" ng-init="loadPage()">
     <ion-content>
   <div class="bar bar-header bar-assertive">
   <button class="button icon ion-plus-circled add-new" ng-click="newVideo()"> Add New</button>
@@ -23,12 +23,12 @@
         <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ukg_U3CnJWI" frameborder="0" allowfullscreen></iframe> -->
         <div class="list padding has-subheader" ng-repeat="video in all_video track by $index">
 
-				<div class="item item-divider" style="text-align:center;">
-				{{ video.title }}
+				<div class="item item-divider">
+				{{ video.title }}<i class="icon ion-trash-a" style="float: right;" ng-click="deleteVideo(video.id)"></i>
 				</div>
-		      <div class="item item-text-wrap">
+		      <div class="item">
             <!-- <a href="{{ videos.$getRecord(eachvideo.$id).url }}" target="_blank">{{ videos.$getRecord(eachvideo.$id).url }}</a> -->
-            <iframe ng-src="{{video.url | trusted}}" frameborder="0" style="width: 100vw; " allowfullscreen></iframe>
+            <iframe ng-src="{{video.url | trusted}}" style="width: 100%; display: block;" allowfullscreen></iframe>
 		      </div>
 		    </div>
 <script id="template/newVideo.html" type="text/ng-template">

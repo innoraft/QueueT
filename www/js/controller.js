@@ -24,8 +24,8 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
     	// The firebase.auth.AuthCredential type that was used.
     	var credential = error.credential;
     });
-
 	};
+
   // login state checking function...
 $scope.checkLoginState = function checkLoginState() {
   firebase.auth().onAuthStateChanged(function(user) {
@@ -39,7 +39,6 @@ $scope.checkLoginState = function checkLoginState() {
   });
 };
 
-
   // function for loging out.
   $scope.logout = function logout() {
     firebase.auth().signOut().then(function() {
@@ -50,7 +49,7 @@ $scope.checkLoginState = function checkLoginState() {
       // An error happened.
       console.log('Error occured');
     });
-  }  
+  }
 });
 
 app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$firebaseAuth,$state,$ionicModal,$firebase){
@@ -59,30 +58,33 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
  var Refshow = firebase.database().ref('videos');
   $scope.videos = $firebaseArray(Refshow);
 
-  // myVideos will store the array returned from firebase...
-  var myVideos = $scope.videos;
+  // For refreshing "all_video" array value..
+  $scope.loadPage = function loadPage() {
+    $scope.videos.$loaded()
+    .then(function(){
+        var all_video = [];
+        angular.forEach($scope.videos, function(video) {
+            var video = {id:video.$id, url:video.url, title:video.title}
+            console.log(video);
+            all_video.push(video);
+        })
+        $scope.all_video = all_video;
+        console.log(all_video);
+    });
+  }
 
-  // // Function to extract videoid and to embed url from youtube url...
-  // function embedVideoUrl(url){
-  //   var regex = /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/;
-  //   var videoid = url.match(regex);
-  //
-  //     var embed_url = "https://www.youtube.com/watch?v=" + videoid[1];
-  //     return embed_url;
-  // }
-
-// Extracting individual items from myVideos array and appending the IDs into "all_video" array...
-  myVideos.$loaded()
-  .then(function(){
-      var all_video = [];
-      angular.forEach(myVideos, function(video) {
-          var video = {id:video.$id, url:video.url, title:video.title}
-          console.log(video);
-          all_video.push(video);
-      })
-      $scope.all_video = all_video;
-      console.log(all_video);
-  });
+  // For deleting video from database and queue list...
+  $scope.deleteVideo = function deleteVideo(id){
+    // Confirmation alert message..
+    var del = confirm("Are you sure, you want to delete ?");
+    if (del == true){
+      var database = firebase.database();
+      var ref = database.ref('videos');
+      ref.child(id).remove();
+      $scope.loadPage();
+    }
+    // console.log("removed: " + id);
+  }
 
   //this is used for calling newVideo.html when users click on newNote button
   $scope.newVideo=function(){
@@ -93,7 +95,7 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
   }).then(function(modal) {
     $scope.modalFirst = modal;
   });
- 
+
  //close modal form
  $scope.close = function(){
   $scope.modalFirst.hide();
@@ -107,7 +109,7 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
         var url = object.video_url;
         var id = matchYoutubeUrl(url);
         if(id!=false){    //if valid add to firebase
-          var database = firebase.database(); 
+          var database = firebase.database();
           var newVideoData = {
           title: object.video_title,
           url: object.video_url
@@ -115,8 +117,9 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
           var ref = database.ref('videos');
           ref.push(newVideoData);
           object.video_title = "";
-          object.video_url = "";     
+          object.video_url = "";
           $scope.error_msg = "";
+          $scope.loadPage();
           $scope.modalFirst.hide();
         }
         else{                 //else throw error if invalid

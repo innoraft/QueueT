@@ -34,3 +34,13 @@ body,.pane{
 .pane{
 background-color: #303030;
 }
+.item-divider{
+	color: white;
+	background-color: #ef473a;
+}
+.list{
+	margin-bottom: 0px;
+}
+.title{
+	font-family: 'Montserrat', 'sans-serif' !important;
+}

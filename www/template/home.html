@@ -1,46 +1,63 @@
-<ion-view view-title="QueueT">
+<ion-view view-title="QueueT" ng-init="loadPage()">
     <ion-content>
   <div class="bar bar-header bar-assertive">
-  <button class="button icon ion-plus-circled add-new" ng-click="newVideo()" ng-controller="newVideoCtrl"> Add New</button>
+  <button class="button icon ion-plus-circled add-new" ng-click="newVideo()"> Add New</button>
 <h1 class="title"><strong>QueueT</strong></h1>
 <button class="button icon ion-log-out" ng-click="logout()"></button>
 </div>
-     <div class="padding">
+     <!-- <div class="padding">
             <div class="item item-text-wrap has-header">
                 <span class="message-note">
                     <p>No Videos!! Add Video links using Add New button!!!</p>
                     <button ng-click="checkLoginState()">Login State Check</button>
                 </span>
             </div>
+            <div class="item item-text-wrap">
+             <span class="message-note">
+                    <p>No Videos!! Add Video links using Add New button!!!</p>
+                </span>
+            </div>
+        </div> -->
+        <div class="bar bar-subheader padding"><h2 class="title">VIDEO QUEUE</h2>
         </div>
 
+        <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ukg_U3CnJWI" frameborder="0" allowfullscreen></iframe> -->
+        <div class="list padding has-subheader" ng-repeat="video in all_video track by $index">
 
+				<div class="item item-divider">
+				{{ video.title }}<i class="icon ion-trash-a" style="float: right;" ng-click="deleteVideo(video.id)"></i>
+				</div>
+		      <div class="item">
+            <!-- <a href="{{ videos.$getRecord(eachvideo.$id).url }}" target="_blank">{{ videos.$getRecord(eachvideo.$id).url }}</a> -->
+            <iframe ng-src="{{video.url | trusted}}" style="width: 100%; display: block;" allowfullscreen></iframe>
+		      </div>
+		    </div>
+      
 <script id="template/newVideo.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
           <h1 class="title">New Video Link</h1>
-          <button class="button button-clear button-primary" ng-click="modalFirst.hide()">Cancel</button>
+          <button class="button button-clear button-primary" ng-click="close()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
-         <form name="addForm">
+         <form name="addForm" ng-submit="add_video(video)">
             <div class="list">
                 <label class="item item-input">
-                <input type="text" placeholder="Enter Video Title" required>
+                <input type="text" placeholder="Enter Video Title" ng-model="video.video_title" required>
                 </label>
                 <br/>
                 <label class="item item-input">
-                <textarea rows="6" placeholder="Paste Your Video URL" required></textarea>
+                <textarea rows="6" id="youTubeUrl" placeholder="Paste Your Video URL" ng-model="video.video_url" required></textarea>
                 </label>
+                <span>{{ error_msg }}</span>
                 <div class="row">
-                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="addForm.$invalid"><i class="ion-plus-circled"></i> Add
+                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="btndisabled" ng-model="disable_add"><i class="ion-plus-circled"></i> Add
                     </button>
                     <button type="reset" class="button-assertive button-block button col-33 col-offset-33"><i class="ion-ios-refresh"></i> Reset</button>
                 </div>
             </div>
+
         </form>
         </ion-content>
       </ion-modal-view>
     </script>
-
-	</ion-content>
-</ion-view>

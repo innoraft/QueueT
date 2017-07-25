@@ -38,13 +38,21 @@ app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
   .state('home', {
     url:'/',
     templateUrl: 'template/home.html',
-    controller:'AppCtrl',
+    controller: 'newVideoCtrl'
     auth : true
   })
 
   // For removing '#' from the url.
-  $locationProvider.html5Mode(true);
+  // $locationProvider.html5Mode(true);
 })
+
+
+app.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+            var video_id = url.split('v=')[1].split('&')[0];
+        return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + video_id);
+    };
+}]);
 
 // Login authentication and page redirection
 app.run(function ($rootScope, $state, $firebaseObject, $firebaseAuth) {

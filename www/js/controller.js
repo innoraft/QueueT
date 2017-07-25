@@ -13,7 +13,8 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 				$scope.name=user.displayName;
 			});
 			$scope.name = user.displayName;
-      // console.log(user.displayName);
+
+      // Redirect to home page
       $state.go('home');
     }).catch(function(error) {
     	// Handle Errors here.
@@ -25,19 +26,6 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
     	var credential = error.credential;
     });
 	};
-
-  // login state checking function...
-$scope.checkLoginState = function checkLoginState() {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      console.log('signed in');
-    } else {
-      // No user is signed in.
-      console.log('not signed in');
-    }
-  });
-};
 
   // function for loging out.
   $scope.logout = function logout() {
@@ -92,8 +80,10 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
   }
   $ionicModal.fromTemplateUrl('template/newVideo.html', {
     scope: $scope
-  }).then(function(modal) {
+    })
+    .then(function(modal) {
     $scope.modalFirst = modal;
+    });
   });
 
  //close modal form

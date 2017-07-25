@@ -9,6 +9,7 @@
             <div class="item item-text-wrap has-header">
                 <span class="message-note">
                     <p>No Videos!! Add Video links using Add New button!!!</p>
+                    <button ng-click="checkLoginState()">Login State Check</button>
                 </span>
             </div>
             <div class="item item-text-wrap">
@@ -31,6 +32,7 @@
             <iframe ng-src="{{video.url | trusted}}" style="width: 100%; display: block;" allowfullscreen></iframe>
 		      </div>
 		    </div>
+      
 <script id="template/newVideo.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">

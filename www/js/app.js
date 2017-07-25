@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('QueueT', ['ionic','firebase'])
+var app = angular.module('QueueT', ['ionic','firebase','ui.router'])
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,22 +23,29 @@ app.run(function($ionicPlatform) {
   });
 })
 
-app.config(function($stateProvider, $locationProvider) {
+app.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/');
+
   $stateProvider
   .state('login', {
-    url: '/',
+    url: '/login',
     // abstract: true,
     templateUrl: 'template/login.html',
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
+    auth : false
   })
   .state('home', {
-    url:'/home',
+    url:'/',
     templateUrl: 'template/home.html',
     controller: 'newVideoCtrl'
+    auth : true
   })
+
   // For removing '#' from the url.
   // $locationProvider.html5Mode(true);
 })
+
 
 app.filter('trusted', ['$sce', function ($sce) {
     return function(url) {
@@ -46,3 +53,17 @@ app.filter('trusted', ['$sce', function ($sce) {
         return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + video_id);
     };
 }]);
+
+// Login authentication and page redirection
+app.run(function ($rootScope, $state, $firebaseObject, $firebaseAuth) {
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+    toState.auth &&
+    firebase.auth().onAuthStateChanged(function(user) {
+      // User isn’t authenticated
+      if (!user) {
+       $state.transitionTo("login");
+       event.preventDefault();
+      }
+    });
+  });
+});

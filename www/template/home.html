@@ -9,7 +9,6 @@
             <div class="item item-text-wrap has-header">
                 <span class="message-note">
                     <p>No Videos!! Add Video links using Add New button!!!</p>
-                    <button ng-click="checkLoginState()">Login State Check</button>
                 </span>
             </div>
             <div class="item item-text-wrap">
@@ -32,8 +31,7 @@
             <iframe ng-src="{{video.url | trusted}}" style="width: 100%; display: block;" allowfullscreen></iframe>
 		      </div>
 		    </div>
-      
-<script id="template/newVideo.html" type="text/ng-template">
+        <script id="template/newVideo.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
           <h1 class="title">New Video Link</h1>
@@ -43,7 +41,7 @@
          <form name="addForm" ng-submit="add_video(video)">
             <div class="list">
                 <label class="item item-input">
-                <input type="text" placeholder="Enter Video Title" ng-model="video.video_title" required>
+                <input type="text" placeholder="Enter Video Title" required>
                 </label>
                 <br/>
                 <label class="item item-input">
@@ -61,3 +59,6 @@
         </ion-content>
       </ion-modal-view>
     </script>
+
+	</ion-content>
+</ion-view>

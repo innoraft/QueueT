@@ -1,5 +1,5 @@
 
-app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal){
+app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal,$firebaseArray){
 
   var provider = new firebase.auth.GoogleAuthProvider();
 	$scope.googleAuth =  function(){
@@ -13,8 +13,6 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
 				$scope.name=user.displayName;
 			});
 			$scope.name = user.displayName;
-
-      // Redirect to home page
       $state.go('home');
     }).catch(function(error) {
     	// Handle Errors here.
@@ -25,9 +23,13 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
     	// The firebase.auth.AuthCredential type that was used.
     	var credential = error.credential;
     });
-	};
+  }
+});
 
-  // function for loging out.
+
+app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$firebaseAuth,$state,$ionicModal,$firebase){
+
+  // function for loging out. (working)
   $scope.logout = function logout() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
@@ -38,9 +40,10 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
       console.log('Error occured');
     });
   }
-});
-
-app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$firebaseAuth,$state,$ionicModal,$firebase){
+//this is used for calling newNotes.html when users click on newNote button
+  $scope.newVideo=function(){
+  $scope.modalFirst.show()
+}
 
 // retriving data from firebase
  var Refshow = firebase.database().ref('videos');
@@ -52,12 +55,12 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
     .then(function(){
         var all_video = [];
         angular.forEach($scope.videos, function(video) {
+            $scope.checkVideo = video;
             var video = {id:video.$id, url:video.url, title:video.title}
-            console.log(video);
+
             all_video.push(video);
         })
         $scope.all_video = all_video;
-        console.log(all_video);
     });
   }
 
@@ -71,7 +74,6 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
       ref.child(id).remove();
       $scope.loadPage();
     }
-    // console.log("removed: " + id);
   }
 
   //this is used for calling newVideo.html when users click on newNote button
@@ -80,10 +82,8 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
   }
   $ionicModal.fromTemplateUrl('template/newVideo.html', {
     scope: $scope
-    })
-    .then(function(modal) {
+  }).then(function(modal) {
     $scope.modalFirst = modal;
-    });
   });
 
  //close modal form

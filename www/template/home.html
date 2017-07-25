@@ -1,7 +1,7 @@
 <ion-view view-title="QueueT" ng-init="loadPage()">
     <ion-content>
   <div class="bar bar-header bar-assertive">
-  <button class="button icon ion-plus-circled add-new" ng-click="newVideo()" ng-controller="newVideoCtrl"> Add New</button>
+  <button class="button icon ion-plus-circled add-new" ng-click="newVideo()"> Add New</button>
 <h1 class="title"><strong>QueueT</strong></h1>
 <button class="button icon ion-log-out" ng-click="logout()"></button>
 </div>
@@ -16,7 +16,7 @@
                     <p>No Videos!! Add Video links using Add New button!!!</p>
                 </span>
             </div>
-        </div>  -->
+        </div> -->
         <div class="bar bar-subheader padding"><h2 class="title">VIDEO QUEUE</h2>
         </div>
 
@@ -35,25 +35,26 @@
       <ion-modal-view>
         <ion-header-bar class="bar bar-header bar-assertive">
           <h1 class="title">New Video Link</h1>
-          <button class="button button-clear button-primary" ng-click="modalFirst.hide()">Cancel</button>
+          <button class="button button-clear button-primary" ng-click="close()">Cancel</button>
         </ion-header-bar>
         <ion-content class="padding">
-         <form name="addForm">
+         <form name="addForm" ng-submit="add_video(video)">
             <div class="list">
                 <label class="item item-input">
                 <input type="text" placeholder="Enter Video Title" required>
                 </label>
                 <br/>
                 <label class="item item-input">
-                <textarea rows="6" placeholder="Paste Your Video URL" required></textarea>
+                <textarea rows="6" id="youTubeUrl" placeholder="Paste Your Video URL" ng-model="video.video_url" required></textarea>
                 </label>
                 <span>{{ error_msg }}</span>
                 <div class="row">
-                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="addForm.$invalid"><i class="ion-plus-circled"></i> Add
+                    <button type="submit" class="button-assertive button-block button col col-33" ng-disabled="btndisabled" ng-model="disable_add"><i class="ion-plus-circled"></i> Add
                     </button>
                     <button type="reset" class="button-assertive button-block button col-33 col-offset-33"><i class="ion-ios-refresh"></i> Reset</button>
                 </div>
             </div>
+
         </form>
         </ion-content>
       </ion-modal-view>

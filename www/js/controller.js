@@ -2,25 +2,17 @@
 app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal,$firebaseArray){
 
   var provider = new firebase.auth.GoogleAuthProvider();
-
-  // provider.addScope('https://www.googleapis.com/auth/plus.login');
-
 	$scope.googleAuth =  function(){
     // firebase authentication with popup window.
-		// $scope.name="abc";
     firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     	var token = result.credential.accessToken;
     	// The signed-in user info.
     	var user = result.user;
-			// $scope.name = "hello";
 			$scope.$apply(function(){
 				$scope.name=user.displayName;
 			});
 			$scope.name = user.displayName;
-      // $state.go('home');
-      // console.log(user.displayName);
-      // console.log('signed in');
       $state.go('home');
     }).catch(function(error) {
     	// Handle Errors here.
@@ -30,25 +22,8 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
     	var email = error.email;
     	// The firebase.auth.AuthCredential type that was used.
     	var credential = error.credential;
-    	// ...
-    	// console.log("entering error");
     });
-
-	};
-  // login state checking function...
-  // $scope.checkLoginState = function checkLoginState() {
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       // User is signed in.
-  //       console.log('signed in');
-  //       $state.go('home');
-  //     } else {
-  //       // No user is signed in.
-  //       console.log('not signed in');
-  //       $state.go('login');
-  //     }
-  //   });
-  // };
+  }
 });
 
 
@@ -65,14 +40,13 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
       console.log('Error occured');
     });
   }
-
 //this is used for calling newNotes.html when users click on newNote button
   $scope.newVideo=function(){
   $scope.modalFirst.show()
 }
 
 // retriving data from firebase
-  var Refshow = firebase.database().ref('videos');
+ var Refshow = firebase.database().ref('videos');
   $scope.videos = $firebaseArray(Refshow);
 
   // For refreshing "all_video" array value..
@@ -83,6 +57,7 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseArray,$fi
         angular.forEach($scope.videos, function(video) {
             $scope.checkVideo = video;
             var video = {id:video.$id, url:video.url, title:video.title}
+
             all_video.push(video);
         })
         $scope.all_video = all_video;

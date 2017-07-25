@@ -13,14 +13,11 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
     	var token = result.credential.accessToken;
     	// The signed-in user info.
     	var user = result.user;
-			// $scope.name = "hello";
 			$scope.$apply(function(){
 				$scope.name=user.displayName;
 			});
 			$scope.name = user.displayName;
-      // $state.go('home');
-      // console.log(user.displayName);
-      // console.log('signed in');
+      // Redirect to home page
       $state.go('home');
     }).catch(function(error) {
     	// Handle Errors here.
@@ -41,9 +38,12 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
       if (user) {
         // User is signed in.
         console.log('signed in');
+        $state.go('home');
+
       } else {
         // No user is signed in.
         console.log('not signed in');
+        $state.go('login');
       }
     });
   };
@@ -57,7 +57,7 @@ app.controller('AppCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$i
       // An error happened.
       console.log('Error occured');
     });
-  }  
+  }
 });
 
 app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseAuth,$state,$ionicModal){
@@ -68,7 +68,8 @@ app.controller('newVideoCtrl',function($scope,$firebaseObject,$firebaseAuth,$sta
 
   $ionicModal.fromTemplateUrl('template/newVideo.html', {
     scope: $scope
-  }).then(function(modal) {
+    })
+    .then(function(modal) {
     $scope.modalFirst = modal;
-  });
+    });
   });
